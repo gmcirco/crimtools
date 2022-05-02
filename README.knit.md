@@ -4,14 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
+
 
 # crimtools
 
@@ -34,25 +27,6 @@ devtools::install_github("gmcirco/crimtools")
 The `crimtools` package is intended to be used with simple features from the `sf`
 package (see [this link](https://r-spatial.github.io/sf/articles/sf1.html) for a more in-depth description of simple features in R).
 
-```{r example}
-library(crimtools)
-library(sf)
 
-data("newhaven")
-data("nh_hom")
 
-kde_out <- kernel_density(x = nh_hom, region = newhaven, bdw = 3000)
-```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-library(ggplot2)
-
-ggplot(kde_out) +
-  geom_tile(aes(x = X, y = Y, fill = density)) +
-  coord_equal() +
-  scale_fill_viridis_c(option = "magma") +
-  theme_void()
-
-```

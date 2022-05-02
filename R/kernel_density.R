@@ -76,10 +76,11 @@ kernel_density <- function(x,
   ## then convert to a dataframe that can be used w/ ggplot
   ## if 'auto' = TRUE, use bw.ppl as default
   # can also pass in any function that returns a bandwidth estimate
-  if(is.function(bdw))
+  if(is.function(bdw) == T){
     cat("Calculating bandwith...\n")
     bdw <- .bdwfun(xpp, bdw)
     cat(paste0("Bandwidth: ", round(bdw, 1)))
+  }
 
   ## fit density function using specified options
   xdens <- spatstat.core::density.ppp(xpp, kernel = kernel, sigma = bdw)

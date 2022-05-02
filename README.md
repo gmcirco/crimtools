@@ -20,12 +20,16 @@ devtools::install_github("gmcirco/crimtools")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+The `crimtools` package is intended to be used with simple features from
+the `sf` package (see [this
+link](https://r-spatial.github.io/sf/articles/sf1.html#:~:text=Simple%20features%20are%20implemented%20as,are%20typically%20stored%20in%20data.)
+for a more in-depth description of simple features in R).
 
 ``` r
 library(crimtools)
 library(sf)
 #> Linking to GEOS 3.9.1, GDAL 3.3.2, PROJ 7.2.1; sf_use_s2() is TRUE
+
 data("newhaven")
 data("nh_hom")
 
