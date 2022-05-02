@@ -44,3 +44,23 @@ to compute kernel density estimates for `sf` objects. The function can be used
 to return a dataframe with density estimates for grid cells. This can further
 be used for visualization purposes in `ggplot2`
 }
+\examples{
+
+data("newhaven")
+data("nh_hom")
+
+# kernel density estimation with default bandwidth
+kde_out <- kernel_density(x = nh_hom, region = newhaven)
+
+head(kde_out)
+
+# Plotting kde in ggplot
+library(ggplot2)
+
+ggplot(kde_out) +
+ geom_tile(aes(x = X, y = Y, fill = density)) +
+ coord_equal() +
+ scale_fill_viridis_c() +
+ theme_void()
+
+}
