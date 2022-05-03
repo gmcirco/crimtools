@@ -18,12 +18,12 @@ You can install the development version of crimtools from
 devtools::install_github("gmcirco/crimtools")
 ```
 
-## Example
+## Kernel Density Estimation
 
 The `crimtools` package is intended to be used with simple features from
 the `sf` package (see [this
-link](https://r-spatial.github.io/sf/articles/sf1.html#:~:text=Simple%20features%20are%20implemented%20as,are%20typically%20stored%20in%20data.)
-for a more in-depth description of simple features in R).
+link](https://r-spatial.github.io/sf/articles/sf1.html) for a more
+in-depth description of simple features in R).
 
 ``` r
 library(crimtools)
@@ -39,9 +39,6 @@ kde_out <- kernel_density(x = nh_hom, region = newhaven)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
 
 ``` r
 library(ggplot2)

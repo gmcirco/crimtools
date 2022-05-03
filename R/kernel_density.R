@@ -7,9 +7,7 @@
 #' @param kernel Type of kernel to be used for the KDE estimation. Default is
 #' 'gaussian' but can also use 'epanechnikov', 'quartic', or 'disc'.
 #' @param bdw Bandwidth for kernel smoothing. Should be in projected values (meters
-#' or feet). Can also provide any function that returns a bandwidth estimate. Default
-#' behavior is to use `spatstat.core::bw.ppl`, but any of the base functions from the
-#' spatstat family should work.
+#' or feet).  Default behavior is to use `spatstat.core::bw.ppl`.
 #' @param npixel Dimensions of grid points to be used.
 #' @param plot Should a quick plot be generated?
 #' @param return_grid Should the raster grid be returned? If TRUE, returns a
@@ -22,7 +20,6 @@
 #' be used for visualization purposes in `ggplot2`
 #'
 #' @examples
-#'
 #' data("newhaven")
 #' data("nh_hom")
 #'
@@ -47,7 +44,8 @@
 # returns a dataframe compatible with ggplot
 kernel_density <- function(x,
                            region,
-                           bdw = spatstat.core::bw.ppl,
+                           bdw = 'auto',
+                           bdw.fun = NULL,
                            kernel = 'gaussian',
                            npixel = 100,
                            plot = T,
@@ -76,10 +74,11 @@ kernel_density <- function(x,
   ## then convert to a dataframe that can be used w/ ggplot
   ## if 'auto' = TRUE, use bw.ppl as default
   # can also pass in any function that returns a bandwidth estimate
-  if(is.function(bdw) == T){
-    cat("Calculating bandwith...\n")
-    bdw <- .bdwfun(xpp, bdw)
-    cat(paste0("Bandwidth: ", round(bdw, 1)))
+  if(bdw == "auto"){
+    if(is.null(bdw.fun))
+      bdw.fun <- spatstat.core::bw.ppl
+
+    bdw <- .bdwFUN(xpp, f = bdw.fun)
   }
 
   ## fit density function using specified options
@@ -110,10 +109,14 @@ kernel_density <- function(x,
   return(kde_out)
 }
 
-# .BDWFUN
-# take any function and return a bandwidth estimate
-# x should be a .ppp object with window provided
-# f is any function name
-.bdwfun <- function(x, f){
-  return(f(x))
+# .bdwFUN
+## Estimate a bandwidth using either one of the built-in spatstat functions, or
+## a custom bandwidth function
+
+.bdwFUN <- function(x, f){
+  cat("Calculating bandwith...\n")
+  bdw_out <- f(x)
+  cat(paste0("Bandwidth: ", round(bdw_out , 1)))
+
+  return(bdw_out)
 }

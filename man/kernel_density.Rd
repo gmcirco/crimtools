@@ -7,7 +7,8 @@
 kernel_density(
   x,
   region,
-  bdw = spatstat.core::bw.ppl,
+  bdw = "auto",
+  bdw.fun = NULL,
   kernel = "gaussian",
   npixel = 100,
   plot = T,
@@ -20,9 +21,7 @@ kernel_density(
 \item{region}{`sf` polygon that defines the study region.}
 
 \item{bdw}{Bandwidth for kernel smoothing. Should be in projected values (meters
-or feet). Can also provide any function that returns a bandwidth estimate. Default
-behavior is to use `spatstat.core::bw.ppl`, but any of the base functions from the
-spatstat family should work.}
+or feet).  Default behavior is to use `spatstat.core::bw.ppl`.}
 
 \item{kernel}{Type of kernel to be used for the KDE estimation. Default is
 'gaussian' but can also use 'epanechnikov', 'quartic', or 'disc'.}
@@ -45,7 +44,6 @@ to return a dataframe with density estimates for grid cells. This can further
 be used for visualization purposes in `ggplot2`
 }
 \examples{
-
 data("newhaven")
 data("nh_hom")
 
