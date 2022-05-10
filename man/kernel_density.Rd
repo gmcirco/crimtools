@@ -21,17 +21,24 @@ kernel_density(
 \item{region}{`sf` polygon that defines the study region.}
 
 \item{bdw}{Bandwidth for kernel smoothing. Should be in projected values (meters
-or feet).  Default behavior is to use `spatstat.core::bw.ppl`.}
+or feet). If no values are specified, default behavior is 'auto' which will
+apply a bandwidth estimation function specified in the argument `bdw.fun`.}
+
+\item{bdw.fun}{Function to be used to automatically estimate a bandwidth. Defaults
+to`spatstat.core::bw.ppl`, but any function that returns a single numeric value
+can be substituted. Many of the built-in `spatstat` functions work well, such as
+`bw.diggle`.}
 
 \item{kernel}{Type of kernel to be used for the KDE estimation. Default is
 'gaussian' but can also use 'epanechnikov', 'quartic', or 'disc'.}
 
-\item{npixel}{Dimensions of grid points to be used.}
+\item{npixel}{Dimensions of grid points to be used. Should be specified in
+projected values (meters or feet).}
 
 \item{plot}{Should a quick plot be generated?}
 
 \item{return_grid}{Should the raster grid be returned? If TRUE, returns a
-SpatialPixelsDataFrame, otherwise returns a dataframe with
+SpatialPolygonsDataFrame, otherwise returns a dataframe with
 columns for the density value, X, and Y. Defaults to FALSE.}
 }
 \description{
@@ -41,14 +48,19 @@ Computes a kernel density estimate for an `sf` point pattern.
 The kernel_density function uses functionality in the `spatstat` package
 to compute kernel density estimates for `sf` objects. The function can be used
 to return a dataframe with density estimates for grid cells. This can further
-be used for visualization purposes in `ggplot2`
+be used for visualization purposes in `ggplot2`. This function can also return
+the raw `sp` object as a `SpatialPolygonsDataFrame`. This can easily be converted
+to an `sf` object, or exported as a shapefile for use in other programs.
 }
 \examples{
 data("newhaven")
 data("nh_hom")
 
 # kernel density estimation with default bandwidth
-kde_out <- kernel_density(x = nh_hom, region = newhaven)
+kde_out <-
+    kernel_density(
+        x = nh_hom,
+        region = newhaven)
 
 head(kde_out)
 
@@ -60,5 +72,17 @@ ggplot(kde_out) +
  coord_equal() +
  scale_fill_viridis_c() +
  theme_void()
+
+# kernel density estimation with custom bandwidth
+# and quartic kernel
+
+kde_out_quart <-
+   kernel_density(
+       x = nh_hom,
+       region = newhaven,
+       kernel = "quartic",
+       bdw = 1500)
+
+
 
 }
