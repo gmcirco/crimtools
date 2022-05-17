@@ -35,6 +35,12 @@ user-defined neighborhood distance and a minimum points threshold. The
 `cluster_points` function simplifies the fitting and visualization of spatial
 point features. Users can return the original data with cluster IDs attached for
 further analysis.
+
+#' @examples
+data("newhaven")
+data("nh_hom")
+
+cluster_out <- cluster_points(x = nh_hom, region = newhaven, dist = 2000, minPts = 5)
 }
 \references{
 Hahsler M, Piekenbrock M, Doran D (2019). dbscan: Fast Density-Based Clustering with R. Journal of Statistical Software, 91(1), 1-30. doi: 10.18637/jss.v091.i01

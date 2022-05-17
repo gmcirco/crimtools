@@ -128,3 +128,28 @@ Given a region and point pattern, this function computes clusters based
 on user-defined search parameters. Here, this is the `dist` measure and
 `minPts` measure. This means we will search for clusters that are within
 a 2000 foot radius of a ‘core’ point, and contain a minimum of 5 points.
+By default, this function will output an image displaying the number of
+identified clusters and ‘noise’ points, as well as an `sf` point object
+with the cluster IDs attached.
+
+``` r
+# Run DBSCAN
+cluster_out <- cluster_points(x = nh_hom, region = newhaven, dist = 2000, minPts = 5)
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
+
+    #> DBSCAN clustering for 161 objects.
+    #> Parameters: eps = 2000, minPts = 5
+    #> The clustering contains 3 cluster(s) and 22 noise points.
+    #> 
+    #>   0   1   2   3 
+    #>  22 114  19   6 
+    #> 
+    #> Available fields: cluster, eps, minPts
+
+    # check cluster ids
+    table(cluster_out$K)
+    #> 
+    #>   0   1   2   3 
+    #>  22 114  19   6

@@ -117,4 +117,14 @@ ggplot(kde_out) +
 Given a region and point pattern, this function computes clusters based on 
 user-defined search parameters. Here, this is the `dist` measure and `minPts` 
 measure. This means we will search for clusters that are within a 2000 foot radius
-of a 'core' point, and contain a minimum of 5 points. 
+of a 'core' point, and contain a minimum of 5 points. By default, this function
+will output an image displaying the number of identified clusters and 'noise' 
+points, as well as an `sf` point object with the cluster IDs attached.
+
+```{r}
+# Run DBSCAN
+cluster_out <- cluster_points(x = nh_hom, region = newhaven, dist = 2000, minPts = 5)
+
+# check cluster ids
+table(cluster_out$K)
+```

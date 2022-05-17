@@ -45,6 +45,10 @@ cluster_points <- function(x,
                            plot = T,
                            return_pts = T){
 
+  # (1) do some checking
+  ## check for sf data
+  .checkfeat(x);.checkfeat(region)
+
   # get coordinates as a matrix
   dm <- as.matrix(sf::st_coordinates(x))
 
@@ -81,4 +85,15 @@ cluster_points <- function(x,
   # return data with cluster ids
   if(return_pts == T)
     return(x)
+}
+
+# .checkfeat
+## Perform checks on input features
+## Are they `sf` objects? Are they projected
+.checkfeat <- function(x){
+  if(is(x, "sf") != T)
+    stop(paste0("Object ", deparse(substitute(x)), " is not of type 'sf'"))
+
+  if(sf::st_is_longlat(x) == T)
+    stop(paste0("Object ", deparse(substitute(x)), " is not projected'"))
 }
