@@ -2,8 +2,8 @@
 #'
 #' Computes a kernel density estimate for an `sf` point pattern.
 #'
-#' @param x `sf` point pattern.
-#' @param region `sf` polygon that defines the study region.
+#' @param x an `sf` point pattern. Should be the point pattern of interest.
+#' @param region an `sf` polygon feature that defines the study region.
 #' @param kernel Type of kernel to be used for the KDE estimation. Default is
 #' 'gaussian' but can also use 'epanechnikov', 'quartic', or 'disc'.
 #' @param bdw Bandwidth for kernel smoothing. Should be in projected values (meters

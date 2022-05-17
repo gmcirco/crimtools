@@ -16,9 +16,9 @@ kernel_density(
 )
 }
 \arguments{
-\item{x}{`sf` point pattern.}
+\item{x}{an `sf` point pattern. Should be the point pattern of interest.}
 
-\item{region}{`sf` polygon that defines the study region.}
+\item{region}{an `sf` polygon feature that defines the study region.}
 
 \item{bdw}{Bandwidth for kernel smoothing. Should be in projected values (meters
 or feet). If no values are specified, default behavior is 'auto' which will

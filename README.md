@@ -45,6 +45,7 @@ in-depth description of simple features in R). Currently, the following
 analyses are supported:
 
 1.  [Kernel density estimation](#kde)
+2.  [DBCAN point clustering](#dbs)
 
 ## Kernel Density Estimation
 
@@ -69,7 +70,7 @@ data("nh_hom")
 
 # Default output, gaussian kernel
 kde_out <- kernel_density(x = nh_hom, region = newhaven)
-#> Calculating bandwith...
+#> Calculating bandwidth...
 #> Bandwidth: 968.3
 ```
 
@@ -120,3 +121,10 @@ ggplot(kde_out) +
 ```
 
 <img src="man/figures/README-kde2-1.png" width="70%" />
+
+## DBSCAN Point Clustering
+
+Given a region and point pattern, this function computes clusters based
+on user-defined search parameters. Here, this is the `dist` measure and
+`minPts` measure. This means we will search for clusters that are within
+a 2000 foot radius of a ‘core’ point, and contain a minimum of 5 points.
